@@ -1,0 +1,164 @@
+[
+  {
+    "id": "banana-chips",
+    "name": "Banana Chips",
+    "price": 120,
+    "weight": "200g",
+    "description": "Crispy and golden banana chips, perfectly sliced and fried to perfection",
+    "category": "chips",
+    "featured": true
+  },
+  {
+    "id": "jackfruit-chips",
+    "name": "Jack Fruit Chips",
+    "price": 140,
+    "weight": "200g",
+    "description": "Exotic jackfruit chips with a unique sweet and savory flavor",
+    "category": "chips",
+    "featured": true
+  },
+  {
+    "id": "tapioca-chips",
+    "name": "Tapioca Chips",
+    "price": 110,
+    "weight": "200g",
+    "description": "Traditional Kerala-style tapioca chips, thin and crunchy",
+    "category": "chips",
+    "featured": false
+  },
+  {
+    "id": "karela-chips",
+    "name": "Karela Chips",
+    "price": 130,
+    "weight": "200g",
+    "description": "Healthy bitter gourd chips, lightly seasoned and crispy",
+    "category": "chips",
+    "featured": false
+  },
+  {
+    "id": "potato-chips-pudhina",
+    "name": "Potato Chips (Pudhina)",
+    "price": 100,
+    "weight": "200g",
+    "description": "Refreshing mint-flavored potato chips with a cool aftertaste",
+    "category": "chips",
+    "featured": true
+  },
+  {
+    "id": "potato-chips-ginger",
+    "name": "Potato Chips (Ginger)",
+    "price": 100,
+    "weight": "200g",
+    "description": "Zesty ginger-flavored potato chips with a spicy kick",
+    "category": "chips",
+    "featured": false
+  },
+  {
+    "id": "kaju-mixture",
+    "name": "Kaju Mixture",
+    "price": 180,
+    "weight": "200g",
+    "description": "Premium mixture with cashews, curry leaves, and aromatic spices",
+    "category": "mixture",
+    "featured": true
+  },
+  {
+    "id": "garlic-mixture",
+    "name": "Garlic Mixture",
+    "price": 120,
+    "weight": "200g",
+    "description": "Savory mixture with bold garlic flavor and crunchy ingredients",
+    "category": "mixture",
+    "featured": false
+  },
+  {
+    "id": "dalmound-mixture",
+    "name": "Dalmound Mixture",
+    "price": 110,
+    "weight": "200g",
+    "description": "Classic South Indian mixture with dal, peanuts, and sev",
+    "category": "mixture",
+    "featured": false
+  },
+  {
+    "id": "coco-biscuit",
+    "name": "Coco Biscuit",
+    "price": 90,
+    "weight": "200g",
+    "description": "Sweet coconut biscuits with a delicate crumbly texture",
+    "category": "biscuits",
+    "featured": false
+  },
+  {
+    "id": "choco-biscuit",
+    "name": "Choco Biscuit",
+    "price": 95,
+    "weight": "200g",
+    "description": "Rich chocolate biscuits, perfect for tea time",
+    "category": "biscuits",
+    "featured": false
+  },
+  {
+    "id": "murukku-masala",
+    "name": "Murukku (Masala)",
+    "price": 110,
+    "weight": "200g",
+    "description": "Spiral-shaped crunchy murukku with aromatic masala spices",
+    "category": "snacks",
+    "featured": true
+  },
+  {
+    "id": "murukku-salt",
+    "name": "Murukku (Salt)",
+    "price": 100,
+    "weight": "200g",
+    "description": "Traditional salted murukku, crispy and flavorful",
+    "category": "snacks",
+    "featured": false
+  },
+  {
+    "id": "moong-dal",
+    "name": "Moong Dal",
+    "price": 115,
+    "weight": "200g",
+    "description": "Roasted moong dal snack, healthy and protein-rich",
+    "category": "snacks",
+    "featured": false
+  },
+  {
+    "id": "salt-peanut",
+    "name": "Salt Peanut",
+    "price": 80,
+    "weight": "200g",
+    "description": "Roasted peanuts with just the right amount of salt",
+    "category": "snacks",
+    "featured": false
+  },
+  {
+    "id": "masala-peanut",
+    "name": "Masala Peanut",
+    "price": 90,
+    "weight": "200g",
+    "description": "Spicy masala-coated peanuts with a crunchy coating",
+    "category": "snacks",
+    "featured": true
+  },
+  {
+    "id": "bakarwadi",
+    "name": "Bakarwadi",
+    "price": 125,
+    "weight": "200g",
+    "description": "Spiral pastry snack with spicy and sweet filling",
+    "category": "snacks",
+    "featured": false
+  },
+  {
+    "id": "sabudana-papad",
+    "name": "Sabudana Papad",
+    "price": 105,
+    "weight": "200g",
+    "description": "Crispy sabudana papad, perfect accompaniment to meals",
+    "category": "papad",
+    "featured": false
+  }
+]
