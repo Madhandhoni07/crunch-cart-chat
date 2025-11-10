@@ -25,6 +25,9 @@ const Header = () => {
             <Link to="/shop" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
               Shop
             </Link>
+            <Link to="/track-order" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
+              Track Order
+            </Link>
             <Link to="/contact" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
               Contact
             </Link>
@@ -70,6 +73,13 @@ const Header = () => {
               onClick={() => setMobileMenuOpen(false)}
             >
               Shop
+            </Link>
+            <Link
+              to="/track-order"
+              className="block text-sm font-medium text-foreground hover:text-primary transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Track Order
             </Link>
             <Link
               to="/contact"

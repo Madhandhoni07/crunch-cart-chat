@@ -22,6 +22,9 @@ const Footer = () => {
                 <a href="/shop" className="hover:text-primary transition-colors">Shop</a>
               </li>
               <li>
+                <a href="/track-order" className="hover:text-primary transition-colors">Track Order</a>
+              </li>
+              <li>
                 <a href="/contact" className="hover:text-primary transition-colors">Contact</a>
               </li>
             </ul>

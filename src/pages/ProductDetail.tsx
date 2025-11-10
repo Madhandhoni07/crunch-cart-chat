@@ -7,6 +7,47 @@ import { useCart } from "@/hooks/useCart";
 import { toast } from "@/hooks/use-toast";
 import { useState } from "react";
 
+// Import all product images
+import bananaChips from "@/assets/banana-chips.jpg";
+import jackfruitChips from "@/assets/jackfruit-chips.jpg";
+import tapiocaChips from "@/assets/tapioca-chips.jpg";
+import karelaChips from "@/assets/karela-chips.jpg";
+import potatoChipsPudhina from "@/assets/potato-chips-pudhina.jpg";
+import potatoChipsGinger from "@/assets/potato-chips-ginger.jpg";
+import kajuMixture from "@/assets/kaju-mixture.jpg";
+import garlicMixture from "@/assets/garlic-mixture.jpg";
+import dalmoundMixture from "@/assets/dalmound-mixture.jpg";
+import cocoBiscuit from "@/assets/coco-biscuit.jpg";
+import chocoBiscuit from "@/assets/choco-biscuit.jpg";
+import murukkuMasala from "@/assets/murukku-masala.jpg";
+import murukkuSalt from "@/assets/murukku-salt.jpg";
+import moongDal from "@/assets/moong-dal.jpg";
+import saltPeanut from "@/assets/salt-peanut.jpg";
+import masalaPeanut from "@/assets/masala-peanut.jpg";
+import bakarwadi from "@/assets/bakarwadi.jpg";
+import sabudanaPapad from "@/assets/sabudana-papad.jpg";
+
+const imageMap: Record<string, string> = {
+  "banana-chips.jpg": bananaChips,
+  "jackfruit-chips.jpg": jackfruitChips,
+  "tapioca-chips.jpg": tapiocaChips,
+  "karela-chips.jpg": karelaChips,
+  "potato-chips-pudhina.jpg": potatoChipsPudhina,
+  "potato-chips-ginger.jpg": potatoChipsGinger,
+  "kaju-mixture.jpg": kajuMixture,
+  "garlic-mixture.jpg": garlicMixture,
+  "dalmound-mixture.jpg": dalmoundMixture,
+  "coco-biscuit.jpg": cocoBiscuit,
+  "choco-biscuit.jpg": chocoBiscuit,
+  "murukku-masala.jpg": murukkuMasala,
+  "murukku-salt.jpg": murukkuSalt,
+  "moong-dal.jpg": moongDal,
+  "salt-peanut.jpg": saltPeanut,
+  "masala-peanut.jpg": masalaPeanut,
+  "bakarwadi.jpg": bakarwadi,
+  "sabudana-papad.jpg": sabudanaPapad,
+};
+
 const ProductDetail = () => {
   const { id } = useParams();
   const product = products.find((p) => p.id === id);
@@ -36,6 +77,8 @@ const ProductDetail = () => {
     });
   };
 
+  const imageSrc = product.image ? imageMap[product.image] : null;
+
   return (
     <div className="min-h-screen py-12">
       <div className="container mx-auto px-4">
@@ -48,9 +91,19 @@ const ProductDetail = () => {
 
         <div className="grid md:grid-cols-2 gap-12">
           {/* Product Image */}
-          <Card className="p-8">
-            <div className="aspect-square bg-gradient-to-br from-primary/20 to-accent/20 rounded-lg flex items-center justify-center">
-              <span className="text-9xl font-bold text-primary/40">{product.name.charAt(0)}</span>
+          <Card className="p-8 animate-fade-in">
+            <div className="aspect-square rounded-lg overflow-hidden">
+              {imageSrc ? (
+                <img 
+                  src={imageSrc} 
+                  alt={product.name}
+                  className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
+                />
+              ) : (
+                <div className="w-full h-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
+                  <span className="text-9xl font-bold text-primary/40">{product.name.charAt(0)}</span>
+                </div>
+              )}
             </div>
           </Card>
 

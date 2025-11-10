@@ -79,18 +79,18 @@ Please confirm availability and delivery time.`;
 
     const whatsappUrl = `https://wa.me/918072073523?text=${encodeURIComponent(message)}`;
     
-    // Clear cart and redirect
+    // Clear cart
     clearCart();
-    window.open(whatsappUrl, "_blank");
     
     toast({
       title: "Order Submitted!",
       description: "Redirecting to WhatsApp...",
     });
 
+    // Use location.href for better mobile compatibility and to avoid popup blockers
     setTimeout(() => {
-      navigate("/");
-    }, 2000);
+      window.location.href = whatsappUrl;
+    }, 500);
   };
 
   return (

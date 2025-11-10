@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import ProductCard from "@/components/ProductCard";
+import Testimonials from "@/components/Testimonials";
 import products from "@/data/products.json";
 import { ArrowRight } from "lucide-react";
 
@@ -10,22 +11,24 @@ const Home = () => {
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-primary/10 via-accent/10 to-background py-20 md:py-32">
+      <section className="relative bg-gradient-to-br from-primary/10 via-accent/10 to-background py-20 md:py-32 animate-fade-in">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 text-foreground">
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 text-foreground animate-slide-up">
               Welcome to <span className="text-primary">SS Snacks</span>
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground mb-8">
+            <p className="text-lg md:text-xl text-muted-foreground mb-8 animate-fade-in" style={{ animationDelay: "0.2s" }}>
               Authentic homemade snacks crafted with love, tradition, and the finest ingredients. 
               Taste the difference of quality in every bite.
             </p>
-            <Link to="/shop">
-              <Button size="lg" className="text-lg px-8">
-                Shop Now
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
+            <div className="animate-fade-in" style={{ animationDelay: "0.4s" }}>
+              <Link to="/shop">
+                <Button size="lg" className="text-lg px-8 hover:scale-105 transition-transform">
+                  Shop Now
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -56,27 +59,30 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Testimonials Section */}
+      <Testimonials />
+
       {/* About Section */}
       <section className="py-16 md:py-24 bg-card">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">Why Choose SS Snacks?</h2>
             <div className="grid md:grid-cols-3 gap-8 mt-12">
-              <div>
+              <div className="animate-fade-in" style={{ animationDelay: "0.1s" }}>
                 <div className="text-4xl mb-3">🥜</div>
                 <h3 className="font-semibold text-lg mb-2">Quality Ingredients</h3>
                 <p className="text-sm text-muted-foreground">
                   Only the finest, freshest ingredients go into our snacks
                 </p>
               </div>
-              <div>
+              <div className="animate-fade-in" style={{ animationDelay: "0.2s" }}>
                 <div className="text-4xl mb-3">👨‍🍳</div>
                 <h3 className="font-semibold text-lg mb-2">Handcrafted</h3>
                 <p className="text-sm text-muted-foreground">
                   Made with traditional methods and recipes passed down through generations
                 </p>
               </div>
-              <div>
+              <div className="animate-fade-in" style={{ animationDelay: "0.3s" }}>
                 <div className="text-4xl mb-3">🎯</div>
                 <h3 className="font-semibold text-lg mb-2">Fresh & Tasty</h3>
                 <p className="text-sm text-muted-foreground">
