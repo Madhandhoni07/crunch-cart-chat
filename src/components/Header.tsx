@@ -1,20 +1,43 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { ShoppingCart, Menu, X } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { ShoppingCart, Menu, X, User, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/hooks/useCart";
+import { supabase } from "@/integrations/supabase/client";
+import { User as SupabaseUser } from "@supabase/supabase-js";
+import logo from "@/assets/ss-logo.png";
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [user, setUser] = useState<SupabaseUser | null>(null);
   const { items } = useCart();
   const cartCount = items.reduce((sum, item) => sum + item.quantity, 0);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    navigate("/");
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
-          <Link to="/" className="flex items-center space-x-2">
-            <span className="text-2xl font-bold text-primary">SS Snacks</span>
+          <Link to="/" className="flex items-center space-x-3">
+            <img src={logo} alt="SS Snacks" className="h-12 w-12 object-contain" />
+            <span className="text-2xl font-bold text-foreground">SS Snacks</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -25,15 +48,12 @@ const Header = () => {
             <Link to="/shop" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
               Shop
             </Link>
-            <Link to="/track-order" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
-              Track Order
-            </Link>
             <Link to="/contact" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
               Contact
             </Link>
           </nav>
 
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2">
             <Link to="/cart">
               <Button variant="ghost" size="icon" className="relative">
                 <ShoppingCart className="h-5 w-5" />
@@ -44,6 +64,18 @@ const Header = () => {
                 )}
               </Button>
             </Link>
+
+            {user ? (
+              <Button variant="ghost" size="icon" onClick={handleLogout} className="hidden md:flex">
+                <LogOut className="h-5 w-5" />
+              </Button>
+            ) : (
+              <Link to="/auth">
+                <Button variant="ghost" size="icon" className="hidden md:flex">
+                  <User className="h-5 w-5" />
+                </Button>
+              </Link>
+            )}
 
             {/* Mobile Menu Button */}
             <Button
@@ -75,19 +107,31 @@ const Header = () => {
               Shop
             </Link>
             <Link
-              to="/track-order"
-              className="block text-sm font-medium text-foreground hover:text-primary transition-colors"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Track Order
-            </Link>
-            <Link
               to="/contact"
               className="block text-sm font-medium text-foreground hover:text-primary transition-colors"
               onClick={() => setMobileMenuOpen(false)}
             >
               Contact
             </Link>
+            {user ? (
+              <button
+                onClick={() => {
+                  handleLogout();
+                  setMobileMenuOpen(false);
+                }}
+                className="block w-full text-left text-sm font-medium text-foreground hover:text-primary transition-colors"
+              >
+                Logout
+              </button>
+            ) : (
+              <Link
+                to="/auth"
+                className="block text-sm font-medium text-foreground hover:text-primary transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Login
+              </Link>
+            )}
           </nav>
         )}
       </div>
