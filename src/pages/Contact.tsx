@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Mail, MessageCircle, Phone } from "lucide-react";
+import { Mail, MessageCircle, Phone, MapPin } from "lucide-react";
 
 const Contact = () => {
   return (
@@ -63,12 +63,33 @@ const Contact = () => {
           </div>
         </Card>
 
-        <div className="mt-12 text-center">
-          <h3 className="text-xl font-semibold mb-4">Visit Our Shop</h3>
-          <p className="text-muted-foreground">
-            Want to pick up your order in person? Contact us for our location details!
-          </p>
-        </div>
+        <Card className="mt-8 p-8">
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div>
+              <h2 className="text-2xl font-bold mb-4">Find Us</h2>
+              <div className="flex items-start gap-4 text-muted-foreground">
+                <MapPin className="h-6 w-6 text-primary mt-1 flex-shrink-0" />
+                <div>
+                  <p className="font-semibold text-foreground">SS TRADING AND CO</p>
+                  <p>2633/3, Harpale wasti, Fursunghi,</p>
+                  <p>Fursunghi Bhekrai Road, Near Royal Hotel,</p>
+                  <p>Pune, Maharashtra - 412308</p>
+                </div>
+              </div>
+            </div>
+            <div className="rounded-lg overflow-hidden shadow-lg">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3276.6293374213865!2d73.96475577519061!3d18.47743718260776!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTjCsDI4JzM4LjgiTiA3M8KwNTgnMDIuNCJF!5e1!3m2!1sen!2sin!4v1762944179920!5m2!1sen!2sin"
+                width="100%"
+                height="300"
+                style={{ border: 0 }}
+                allowFullScreen={true}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
+          </div>
+        </Card>
       </div>
     </div>
   );

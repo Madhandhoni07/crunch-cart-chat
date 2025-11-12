@@ -1,15 +1,26 @@
-import { Mail, Phone } from "lucide-react";
+import { Mail, Phone, MapPin } from "lucide-react";
 
 const Footer = () => {
   return (
     <footer className="border-t border-border bg-card">
       <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
             <h3 className="text-lg font-bold text-primary mb-3">SS Snacks</h3>
             <p className="text-sm text-muted-foreground">
               Authentic homemade snacks crafted with love and quality ingredients.
             </p>
+          </div>
+
+          <div className="md:col-span-2">
+            <h4 className="font-semibold mb-3">Our Location</h4>
+            <div className="flex items-start gap-3 text-sm text-muted-foreground">
+              <MapPin className="h-4 w-4 mt-1 flex-shrink-0" />
+              <div>
+                <p>SS TRADING AND CO, 2633/3, Harpale wasti, Fursunghi,</p>
+                <p>Fursunghi Bhekrai Road, Near Royal Hotel, Pune, Maharashtra - 412308</p>
+              </div>
+            </div>
           </div>
 
           <div>
@@ -20,6 +31,9 @@ const Footer = () => {
               </li>
               <li>
                 <a href="/shop" className="hover:text-primary transition-colors">Shop</a>
+              </li>
+              <li>
+                <a href="/about" className="hover:text-primary transition-colors">About Us</a>
               </li>
               <li>
                 <a href="/contact" className="hover:text-primary transition-colors">Contact</a>

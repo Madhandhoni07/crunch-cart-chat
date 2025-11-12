@@ -13,6 +13,7 @@ import Checkout from "./pages/Checkout";
 import Contact from "./pages/Contact";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
+import About from "./components/About";
 import ProfilePage from "@/../ProfilePage";
 import OrdersPage from "@/../OrdersPage";
 import AddressesPage from "@/../AddressesPage";
@@ -37,6 +38,7 @@ const App = () => (
               <Route path="/checkout" element={<Checkout />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/auth" element={<Auth />} />
+              <Route path="/about" element={<About />} />
               <Route path="/profile" element={<ProfilePage />}>
                 <Route index element={<Navigate to="orders" replace />} />
                 <Route path="orders" element={<OrdersPage />} />

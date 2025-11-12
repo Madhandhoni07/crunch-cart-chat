@@ -5,7 +5,8 @@ import { Button } from "@/components/ui/button";
 import { useCartHook } from "@/hooks/useCart";
 import { supabase } from "@/integrations/supabase/client";
 import { User as SupabaseUser } from "@supabase/supabase-js";
-import logo from "@/assets/sssnack.jpg";
+import logoImage from "@/assets/sssnackslogo1.jpg";
+
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -36,8 +37,10 @@ const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           <Link to="/" className="flex items-center space-x-3">
-            <img src={logo} alt="SS Snacks" className="h-12 w-12 object-contain" />
-            <span className="text-2xl font-bold text-foreground">SS Snacks</span>
+            <img src={logoImage} alt="SS Snacks" className="h-12 w-12 object-contain" />
+            <span className="text-3xl font-semibold text-primary tracking-wide">
+              SS Snacks
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -47,6 +50,9 @@ const Header = () => {
             </Link>
             <Link to="/shop" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
               Shop
+            </Link>
+            <Link to="/about" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
+              About Us
             </Link>
             <Link to="/contact" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
               Contact
@@ -112,6 +118,13 @@ const Header = () => {
               onClick={() => setMobileMenuOpen(false)}
             >
               Shop
+            </Link>
+            <Link
+              to="/about"
+              className="block text-sm font-medium text-foreground hover:text-primary transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              About Us
             </Link>
             <Link
               to="/contact"

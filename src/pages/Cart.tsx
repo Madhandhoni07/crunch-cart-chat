@@ -63,7 +63,7 @@ const Cart = () => {
 
                   <div className="text-right">
                     <p className="text-xl font-bold text-primary mb-2">
-                      ₹{item.price * item.quantity}
+                      <span className="font-mono">₹{item.price * item.quantity}</span>
                     </p>
                     <Button
                       variant="ghost"
@@ -87,7 +87,7 @@ const Cart = () => {
               <div className="space-y-3 mb-6">
                 <div className="flex justify-between text-muted-foreground">
                   <span>Subtotal</span>
-                  <span>₹{total}</span>
+                  <span className="font-mono">₹{total}</span>
                 </div>
                 <div className="flex justify-between text-muted-foreground">
                   <span>Items</span>
@@ -98,7 +98,7 @@ const Cart = () => {
               <div className="pt-6 border-t border-border mb-6">
                 <div className="flex justify-between text-xl font-bold">
                   <span>Total</span>
-                  <span className="text-primary">₹{total}</span>
+                  <span className="font-mono text-primary">₹{total}</span>
                 </div>
               </div>
 

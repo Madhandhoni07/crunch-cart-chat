@@ -262,7 +262,7 @@ Please confirm availability and delivery time.`;
                     <span>
                       {item.name} x {item.quantity}
                     </span>
-                    <span className="font-medium">₹{item.price * item.quantity}</span>
+                    <span className="font-mono font-medium">₹{item.price * item.quantity}</span>
                   </div>
                 ))}
               </div>
@@ -270,7 +270,7 @@ Please confirm availability and delivery time.`;
               <div className="pt-6 border-t border-border">
                 <div className="flex justify-between text-xl font-bold">
                   <span>Total</span>
-                  <span className="text-primary">₹{total}</span>
+                  <span className="font-mono text-primary">₹{total}</span>
                 </div>
               </div>
             </Card>

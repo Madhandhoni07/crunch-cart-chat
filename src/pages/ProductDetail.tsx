@@ -33,6 +33,7 @@ import saltPeanut from "@/assets/Salt peanut.jpg";
 import masalaPeanut from "@/assets/Masala peanut.jpg";
 import bakarwadi from "@/assets/Bhakarwadi (Big).jpg";
 import sabudanaPapad from "@/assets/Sabudana papadi.jpg";
+import bakarwadiSmall from "@/assets/Bhakarwadi small.jpg";
 import soyaStick from "@/assets/Soya stick.jpg";
 
 const imageMap: Record<string, string> = {
@@ -53,6 +54,7 @@ const imageMap: Record<string, string> = {
   "salt-peanut.jpg": saltPeanut,
   "masala-peanut.jpg": masalaPeanut,
   "bakarwadi.jpg": bakarwadi,
+  "bakarwadi-small.jpg": bakarwadiSmall,
   "sabudana-papad.jpg": sabudanaPapad,
   "Soya stick.jpg": soyaStick,
 };
@@ -160,7 +162,7 @@ const ProductDetail = () => {
           <div>
             <h1 className="text-4xl font-bold mb-4">{product.name}</h1>
             <div className="flex items-baseline gap-4 mb-6">
-              <span className="text-4xl font-bold text-primary">₹{currentPrice}</span>
+              <span className="text-4xl font-bold text-primary font-mono">₹{currentPrice}</span>
               <span className="text-lg text-muted-foreground">per {selectedWeight}</span>
             </div>
 
@@ -177,7 +179,7 @@ const ProductDetail = () => {
                     <SelectContent>
                       {availableWeights.map((weight) => (
                         <SelectItem key={weight} value={weight}>
-                          {weight} - ₹{product.weights![weight]}
+                          {weight} - <span className="font-mono">₹{product.weights![weight]}</span>
                         </SelectItem>
                       ))}
                     </SelectContent>

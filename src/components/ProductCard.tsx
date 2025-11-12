@@ -25,6 +25,7 @@ import saltPeanut from "@/assets/Salt peanut.jpg";
 import masalaPeanut from "@/assets/Masala peanut.jpg";
 import bakarwadi from "@/assets/Bhakarwadi (Big).jpg";
 import sabudanaPapad from "@/assets/Sabudana papadi.jpg";
+import bakarwadiSmall from "@/assets/Bhakarwadi small.jpg";
 import soyaStick from "@/assets/Soya stick.jpg";
 
 const imageMap: Record<string, string> = {
@@ -45,6 +46,7 @@ const imageMap: Record<string, string> = {
   "salt-peanut.jpg": saltPeanut,
   "masala-peanut.jpg": masalaPeanut,
   "bakarwadi.jpg": bakarwadi,
+  "bakarwadi-small.jpg": bakarwadiSmall,
   "sabudana-papad.jpg": sabudanaPapad,
   "Soya stick.jpg": soyaStick,
 };
@@ -119,7 +121,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
             {product.description}
           </p>
           <div className="flex items-baseline justify-between">
-            <span className="text-2xl font-bold text-primary">₹{product.price}</span>
+            <span className="text-xl font-semibold text-primary">₹{product.price}</span>
             <span className="text-sm text-muted-foreground">
               {product.baseWeight || product.weight || (product.weights ? Object.keys(product.weights)[0] : "500g")}
             </span>
