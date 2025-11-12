@@ -2,15 +2,15 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ShoppingCart, Menu, X, User, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useCart } from "@/hooks/useCart";
+import { useCartHook } from "@/hooks/useCart";
 import { supabase } from "@/integrations/supabase/client";
 import { User as SupabaseUser } from "@supabase/supabase-js";
-import logo from "@/assets/ss-logo.png";
+import logo from "@/assets/sssnack.jpg";
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [user, setUser] = useState<SupabaseUser | null>(null);
-  const { items } = useCart();
+  const { items } = useCartHook();
   const cartCount = items.reduce((sum, item) => sum + item.quantity, 0);
   const navigate = useNavigate();
 
@@ -66,9 +66,16 @@ const Header = () => {
             </Link>
 
             {user ? (
-              <Button variant="ghost" size="icon" onClick={handleLogout} className="hidden md:flex">
-                <LogOut className="h-5 w-5" />
-              </Button>
+              <div className="hidden md:flex items-center space-x-2">
+                <Link to="/profile">
+                  <Button variant="ghost" size="icon">
+                    <User className="h-5 w-5" />
+                  </Button>
+                </Link>
+                <Button variant="ghost" size="icon" onClick={handleLogout}>
+                  <LogOut className="h-5 w-5" />
+                </Button>
+              </div>
             ) : (
               <Link to="/auth">
                 <Button variant="ghost" size="icon" className="hidden md:flex">
@@ -114,15 +121,24 @@ const Header = () => {
               Contact
             </Link>
             {user ? (
-              <button
-                onClick={() => {
-                  handleLogout();
-                  setMobileMenuOpen(false);
-                }}
-                className="block w-full text-left text-sm font-medium text-foreground hover:text-primary transition-colors"
-              >
-                Logout
-              </button>
+              <>
+                <Link
+                  to="/profile"
+                  className="block text-sm font-medium text-foreground hover:text-primary transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  My Profile
+                </Link>
+                <button
+                  onClick={() => {
+                    handleLogout();
+                    setMobileMenuOpen(false);
+                  }}
+                  className="block w-full text-left text-sm font-medium text-foreground hover:text-primary transition-colors"
+                >
+                  Logout
+                </button>
+              </>
             ) : (
               <Link
                 to="/auth"

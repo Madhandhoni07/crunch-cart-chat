@@ -3,7 +3,11 @@
     "id": "banana-chips",
     "name": "Banana Chips",
     "price": 120,
-    "weight": "200g",
+    "baseWeight": "500g",
+    "weights": {
+      "500g": 120,
+      "1kg": 220
+    },
     "description": "Crispy and golden banana chips, perfectly sliced and fried to perfection",
     "category": "chips",
     "featured": true,
@@ -13,7 +17,11 @@
     "id": "jackfruit-chips",
     "name": "Jack Fruit Chips",
     "price": 140,
-    "weight": "200g",
+    "baseWeight": "500g",
+    "weights": {
+      "500g": 140,
+      "1kg": 260
+    },
     "description": "Exotic jackfruit chips with a unique sweet and savory flavor",
     "category": "chips",
     "featured": true,
@@ -23,7 +31,11 @@
     "id": "tapioca-chips",
     "name": "Tapioca Chips",
     "price": 110,
-    "weight": "200g",
+    "baseWeight": "500g",
+    "weights": {
+      "500g": 110,
+      "1kg": 200
+    },
     "description": "Traditional Kerala-style tapioca chips, thin and crunchy",
     "category": "chips",
     "featured": false,
@@ -33,7 +45,11 @@
     "id": "karela-chips",
     "name": "Karela Chips",
     "price": 130,
-    "weight": "200g",
+    "baseWeight": "500g",
+    "weights": {
+      "500g": 130,
+      "1kg": 240
+    },
     "description": "Healthy bitter gourd chips, lightly seasoned and crispy",
     "category": "chips",
     "featured": false,
@@ -43,7 +59,11 @@
     "id": "potato-chips-pudhina",
     "name": "Potato Chips (Pudhina)",
     "price": 100,
-    "weight": "200g",
+    "baseWeight": "500g",
+    "weights": {
+      "500g": 100,
+      "1kg": 180
+    },
     "description": "Refreshing mint-flavored potato chips with a cool aftertaste",
     "category": "chips",
     "featured": true,
@@ -53,7 +73,11 @@
     "id": "potato-chips-ginger",
     "name": "Potato Chips (Ginger)",
     "price": 100,
-    "weight": "200g",
+    "baseWeight": "500g",
+    "weights": {
+      "500g": 100,
+      "1kg": 180
+    },
     "description": "Zesty ginger-flavored potato chips with a spicy kick",
     "category": "chips",
     "featured": false,
@@ -63,7 +87,11 @@
     "id": "kaju-mixture",
     "name": "Kaju Mixture",
     "price": 180,
-    "weight": "200g",
+    "baseWeight": "500g",
+    "weights": {
+      "500g": 180,
+      "1kg": 340
+    },
     "description": "Premium mixture with cashews, curry leaves, and aromatic spices",
     "category": "mixture",
     "featured": true,
@@ -73,7 +101,11 @@
     "id": "garlic-mixture",
     "name": "Garlic Mixture",
     "price": 120,
-    "weight": "200g",
+    "baseWeight": "500g",
+    "weights": {
+      "500g": 120,
+      "1kg": 220
+    },
     "description": "Savory mixture with bold garlic flavor and crunchy ingredients",
     "category": "mixture",
     "featured": false,
@@ -83,7 +115,11 @@
     "id": "dalmound-mixture",
     "name": "Dalmound Mixture",
     "price": 110,
-    "weight": "200g",
+    "baseWeight": "500g",
+    "weights": {
+      "500g": 110,
+      "1kg": 200
+    },
     "description": "Classic South Indian mixture with dal, peanuts, and sev",
     "category": "mixture",
     "featured": false,
@@ -93,7 +129,11 @@
     "id": "coco-biscuit",
     "name": "Coco Biscuit",
     "price": 90,
-    "weight": "200g",
+    "baseWeight": "500g",
+    "weights": {
+      "500g": 90,
+      "1kg": 170
+    },
     "description": "Sweet coconut biscuits with a delicate crumbly texture",
     "category": "biscuits",
     "featured": false,
@@ -103,7 +143,11 @@
     "id": "choco-biscuit",
     "name": "Choco Biscuit",
     "price": 95,
-    "weight": "200g",
+    "baseWeight": "500g",
+    "weights": {
+      "500g": 95,
+      "1kg": 180
+    },
     "description": "Rich chocolate biscuits, perfect for tea time",
     "category": "biscuits",
     "featured": false,
@@ -113,7 +157,11 @@
     "id": "murukku-masala",
     "name": "Murukku (Masala)",
     "price": 110,
-    "weight": "200g",
+    "baseWeight": "500g",
+    "weights": {
+      "500g": 110,
+      "1kg": 200
+    },
     "description": "Spiral-shaped crunchy murukku with aromatic masala spices",
     "category": "snacks",
     "featured": true,
@@ -123,7 +171,11 @@
     "id": "murukku-salt",
     "name": "Murukku (Salt)",
     "price": 100,
-    "weight": "200g",
+    "baseWeight": "500g",
+    "weights": {
+      "500g": 100,
+      "1kg": 180
+    },
     "description": "Traditional salted murukku, crispy and flavorful",
     "category": "snacks",
     "featured": false,
@@ -133,7 +185,11 @@
     "id": "moong-dal",
     "name": "Moong Dal",
     "price": 115,
-    "weight": "200g",
+    "baseWeight": "500g",
+    "weights": {
+      "500g": 115,
+      "1kg": 210
+    },
     "description": "Roasted moong dal snack, healthy and protein-rich",
     "category": "snacks",
     "featured": false,
@@ -143,7 +199,11 @@
     "id": "salt-peanut",
     "name": "Salt Peanut",
     "price": 80,
-    "weight": "200g",
+    "baseWeight": "500g",
+    "weights": {
+      "500g": 80,
+      "1kg": 150
+    },
     "description": "Roasted peanuts with just the right amount of salt",
     "category": "snacks",
     "featured": false,
@@ -153,7 +213,11 @@
     "id": "masala-peanut",
     "name": "Masala Peanut",
     "price": 90,
-    "weight": "200g",
+    "baseWeight": "500g",
+    "weights": {
+      "500g": 90,
+      "1kg": 170
+    },
     "description": "Spicy masala-coated peanuts with a crunchy coating",
     "category": "snacks",
     "featured": true,
@@ -163,7 +227,11 @@
     "id": "bakarwadi",
     "name": "Bakarwadi",
     "price": 125,
-    "weight": "200g",
+    "baseWeight": "500g",
+    "weights": {
+      "500g": 125,
+      "1kg": 230
+    },
     "description": "Spiral pastry snack with spicy and sweet filling",
     "category": "snacks",
     "featured": false,
@@ -173,10 +241,28 @@
     "id": "sabudana-papad",
     "name": "Sabudana Papad",
     "price": 105,
-    "weight": "200g",
+    "baseWeight": "500g",
+    "weights": {
+      "500g": 105,
+      "1kg": 190
+    },
     "description": "Crispy sabudana papad, perfect accompaniment to meals",
     "category": "papad",
     "featured": false,
     "image": "sabudana-papad.jpg"
+  },
+  {
+    "id": "soya-stick",
+    "name": "Soya Stick",
+    "price": 110,
+    "baseWeight": "500g",
+    "weights": {
+      "500g": 110,
+      "1kg": 200
+    },
+    "description": "Crunchy soya sticks with a savory and spicy flavor.",
+    "category": "snacks",
+    "featured": false,
+    "image": "Soya stick.jpg"
   }
 ]

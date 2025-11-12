@@ -3,29 +3,37 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ShoppingCart, ArrowLeft } from "lucide-react";
 import products from "@/data/products.json";
-import { useCart } from "@/hooks/useCart";
+import { useCartHook } from "@/hooks/useCart";
 import { toast } from "@/hooks/use-toast";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
-// Import all product images
-import bananaChips from "@/assets/banana-chips.jpg";
-import jackfruitChips from "@/assets/jackfruit-chips.jpg";
-import tapiocaChips from "@/assets/tapioca-chips.jpg";
-import karelaChips from "@/assets/karela-chips.jpg";
-import potatoChipsPudhina from "@/assets/potato-chips-pudhina.jpg";
-import potatoChipsGinger from "@/assets/potato-chips-ginger.jpg";
-import kajuMixture from "@/assets/kaju-mixture.jpg";
-import garlicMixture from "@/assets/garlic-mixture.jpg";
-import dalmoundMixture from "@/assets/dalmound-mixture.jpg";
-import cocoBiscuit from "@/assets/coco-biscuit.jpg";
-import chocoBiscuit from "@/assets/choco-biscuit.jpg";
-import murukkuMasala from "@/assets/murukku-masala.jpg";
-import murukkuSalt from "@/assets/murukku-salt.jpg";
-import moongDal from "@/assets/moong-dal.jpg";
-import saltPeanut from "@/assets/salt-peanut.jpg";
-import masalaPeanut from "@/assets/masala-peanut.jpg";
-import bakarwadi from "@/assets/bakarwadi.jpg";
-import sabudanaPapad from "@/assets/sabudana-papad.jpg";
+// Import all product images with actual filenames
+import bananaChips from "@/assets/Banana chips.jpg";
+import jackfruitChips from "@/assets/Jack fruit chips.jpg";
+import tapiocaChips from "@/assets/Tapioca chips.jpg";
+import karelaChips from "@/assets/Bitterguard( karela ) chips.jpg";
+import potatoChipsPudhina from "@/assets/Potato pudhina finger.jpg";
+import potatoChipsGinger from "@/assets/Potato ginger finger.jpg";
+import kajuMixture from "@/assets/Cashew mixer.jpg";
+import garlicMixture from "@/assets/Garlic mixer.jpg";
+import dalmoundMixture from "@/assets/Dall mount mixer.jpg";
+import chocoBiscuit from "@/assets/Chocobiscuit.jpg";
+import cocoBiscuit from "@/assets/coco biscuit.jpg";
+import murukkuMasala from "@/assets/masalmuruku.jpg";
+import murukkuSalt from "@/assets/Murukku salted.jpg";
+import moongDal from "@/assets/Moong dal.jpg";
+import saltPeanut from "@/assets/Salt peanut.jpg";
+import masalaPeanut from "@/assets/Masala peanut.jpg";
+import bakarwadi from "@/assets/Bhakarwadi (Big).jpg";
+import sabudanaPapad from "@/assets/Sabudana papadi.jpg";
+import soyaStick from "@/assets/Soya stick.jpg";
 
 const imageMap: Record<string, string> = {
   "banana-chips.jpg": bananaChips,
@@ -37,7 +45,7 @@ const imageMap: Record<string, string> = {
   "kaju-mixture.jpg": kajuMixture,
   "garlic-mixture.jpg": garlicMixture,
   "dalmound-mixture.jpg": dalmoundMixture,
-  "coco-biscuit.jpg": cocoBiscuit,
+  "coco-biscuit.jpg": cocoBiscuit, // Using choco biscuit as fallback
   "choco-biscuit.jpg": chocoBiscuit,
   "murukku-masala.jpg": murukkuMasala,
   "murukku-salt.jpg": murukkuSalt,
@@ -46,13 +54,40 @@ const imageMap: Record<string, string> = {
   "masala-peanut.jpg": masalaPeanut,
   "bakarwadi.jpg": bakarwadi,
   "sabudana-papad.jpg": sabudanaPapad,
+  "Soya stick.jpg": soyaStick,
 };
+
+interface Product {
+  id: string;
+  name: string;
+  price: number;
+  baseWeight?: string;
+  weight?: string;
+  weights?: {
+    [key: string]: number;
+  };
+  description: string;
+  category: string;
+  featured?: boolean;
+  image?: string;
+}
 
 const ProductDetail = () => {
   const { id } = useParams();
-  const product = products.find((p) => p.id === id);
-  const { addItem } = useCart();
+  const product = products.find((p) => p.id === id) as Product | undefined;
+  const { addItem } = useCartHook();
+
+  // Determine default weight
+  const getDefaultWeight = (prod: Product | undefined): string => {
+    if (!prod) return "500g";
+    if (prod.weights) {
+      return Object.keys(prod.weights)[0];
+    }
+    return prod.baseWeight || prod.weight || "500g";
+  };
+
   const [quantity, setQuantity] = useState(1);
+  const [selectedWeight, setSelectedWeight] = useState<string>(() => getDefaultWeight(product));
 
   if (!product) {
     return (
@@ -67,13 +102,27 @@ const ProductDetail = () => {
     );
   }
 
-  const handleAddToCart = () => {
-    for (let i = 0; i < quantity; i++) {
-      addItem(product);
+  // Update selectedWeight when product changes
+  useEffect(() => {
+    if (product) {
+      const defaultWeight = getDefaultWeight(product);
+      setSelectedWeight(defaultWeight);
     }
+  }, [product?.id]);
+
+  const availableWeights = product.weights ? Object.keys(product.weights) : [product.baseWeight || product.weight || "500g"];
+  const currentPrice = product.weights ? (product.weights[selectedWeight] || product.price) : product.price;
+
+  const handleAddToCart = () => {
+    const productToAdd = {
+      ...product,
+      price: currentPrice,
+      weight: selectedWeight,
+    };
+    addItem(productToAdd, quantity);
     toast({
       title: "Added to cart",
-      description: `${quantity} x ${product.name} added to your cart.`,
+      description: `${quantity} x ${product.name} (${selectedWeight}) added to your cart.`,
     });
   };
 
@@ -111,13 +160,31 @@ const ProductDetail = () => {
           <div>
             <h1 className="text-4xl font-bold mb-4">{product.name}</h1>
             <div className="flex items-baseline gap-4 mb-6">
-              <span className="text-4xl font-bold text-primary">₹{product.price}</span>
-              <span className="text-lg text-muted-foreground">per {product.weight}</span>
+              <span className="text-4xl font-bold text-primary">₹{currentPrice}</span>
+              <span className="text-lg text-muted-foreground">per {selectedWeight}</span>
             </div>
 
             <p className="text-lg text-muted-foreground mb-8">{product.description}</p>
 
             <div className="space-y-6">
+              {product.weights && (
+                <div>
+                  <label className="block text-sm font-medium mb-2">Weight</label>
+                  <Select value={selectedWeight} onValueChange={setSelectedWeight}>
+                    <SelectTrigger className="w-full md:w-48">
+                      <SelectValue placeholder="Select weight" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {availableWeights.map((weight) => (
+                        <SelectItem key={weight} value={weight}>
+                          {weight} - ₹{product.weights![weight]}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              )}
+
               <div>
                 <label className="block text-sm font-medium mb-2">Quantity</label>
                 <div className="flex items-center gap-3">
@@ -148,7 +215,7 @@ const ProductDetail = () => {
             <div className="mt-8 p-4 bg-muted rounded-lg">
               <h3 className="font-semibold mb-2">Product Details</h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>• Weight: {product.weight}</li>
+                <li>• Available weights: {availableWeights.join(", ")}</li>
                 <li>• Category: {product.category}</li>
                 <li>• Made with premium ingredients</li>
                 <li>• Freshly prepared</li>

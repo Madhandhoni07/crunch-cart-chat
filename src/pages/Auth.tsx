@@ -167,6 +167,7 @@ const Auth = () => {
                     type="tel"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
+                    required={!isLogin}
                     placeholder="Enter your phone number"
                   />
                 </div>

@@ -15,24 +15,25 @@ const Home = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-primary/10" />
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 text-foreground animate-slide-up leading-tight">
-              Authentic Indian Snacks
-              <span className="block text-primary mt-2">Made Fresh Daily</span>
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold mb-4 text-foreground animate-slide-up leading-tight">
+              Your Favorite South Indian Snacks, Now Online!
             </h1>
+            <h2 className="text-lg md:text-xl text-primary font-medium tracking-wider mb-8 animate-fade-in" style={{ animationDelay: "0.1s" }}>
+             “Crispy, spicy, and made fresh just for you.”
+            </h2>
             <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: "0.2s" }}>
-              Experience the perfect blend of traditional recipes and premium ingredients. 
-              Every bite tells a story of heritage and quality.
+             SS Snacks brings you homemade chips, mixtures, and traditional treats packed with authentic flavor. Taste the joy of South India in every bite.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style={{ animationDelay: "0.4s" }}>
               <Link to="/shop">
                 <Button size="lg" className="text-lg px-10 py-6 rounded-full">
-                  Explore Collection
+                  Explore Snacks 
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
               <Link to="/contact">
                 <Button size="lg" variant="outline" className="text-lg px-10 py-6 rounded-full">
-                  Get in Touch
+                  Contact Us
                 </Button>
               </Link>
             </div>

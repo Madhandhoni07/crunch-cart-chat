@@ -5,7 +5,9 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { useCart } from "@/hooks/useCart";
+import { useCartHook } from "@/hooks/useCart";
+import { Address } from "c:/Users/madha/OneDrive/Desktop/Sample/crunch-cart-chat/AddressesPage";
+import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
 import { z } from "zod";
 
@@ -18,7 +20,7 @@ const checkoutSchema = z.object({
 });
 
 const Checkout = () => {
-  const { items, total, clearCart } = useCart();
+  const { items, total, clearCart } = useCartHook();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
@@ -28,6 +30,7 @@ const Checkout = () => {
     note: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [savedAddresses, setSavedAddresses] = useState<Address[]>([]);
 
   useEffect(() => {
     if (items.length === 0) {
@@ -35,7 +38,24 @@ const Checkout = () => {
     }
   }, [items.length, navigate]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  useEffect(() => {
+    const fetchAddresses = async () => {
+      const { data, error } = await supabase.from("addresses").select("*").order("is_default", { ascending: false });
+      if (error) {
+        console.error("Error fetching addresses:", error);
+      } else if (data) {
+        setSavedAddresses(data);
+        // Pre-fill with default address if available
+        const defaultAddress = data.find(addr => addr.is_default);
+        if (defaultAddress) {
+          handleSelectAddress(defaultAddress);
+        }
+      }
+    };
+    fetchAddresses();
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // Validate form data
@@ -57,6 +77,39 @@ const Checkout = () => {
     }
 
     setErrors({});
+
+    // --- Save order to Supabase ---
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+      toast({
+        title: "Authentication Error",
+        description: "You must be logged in to place an order.",
+        variant: "destructive",
+      });
+      navigate("/auth");
+      return;
+    }
+
+    const order_details = items.map(item => ({
+      id: item.id,
+      name: item.name,
+      price: item.price,
+      quantity: item.quantity,
+      weight: item.weight,
+    }));
+
+    const { error: orderError } = await supabase.from("orders").insert({
+      user_id: user.id,
+      order_details: order_details,
+      customer_info: formData,
+      total_amount: total,
+    });
+
+    if (orderError) {
+      toast({ title: "Order Error", description: "Could not save your order. Please try again.", variant: "destructive" });
+      return;
+    }
+    // --- End of Supabase logic ---
 
     // Create WhatsApp message
     const orderItems = items
@@ -80,18 +133,28 @@ Please confirm availability and delivery time.`;
 
     const whatsappUrl = `https://wa.me/918072073523?text=${encodeURIComponent(message)}`;
     
-    // Clear cart
-    clearCart();
-    
-    toast({
-      title: "Order Submitted!",
-      description: "Redirecting to WhatsApp...",
-    });
-
     // Use location.href for better mobile compatibility and to avoid popup blockers
     setTimeout(() => {
+      // Clear cart and show toast just before redirecting
+      clearCart();
+      toast({
+        title: "Order Submitted!",
+        description: "Redirecting to WhatsApp...",
+      });
       window.location.href = whatsappUrl;
     }, 500);
+  };
+
+  const handleSelectAddress = (addr: Address) => {
+    setFormData({
+      name: formData.name, // Keep name and note
+      phone: formData.phone,
+      address: `${addr.street}${addr.locality ? `, ${addr.locality}` : ''}`,
+      city: addr.city,
+      note: formData.note,
+      // You might want to add state and postal_code to your form state
+      // For now, we combine them into the address string.
+    });
   };
 
   return (
@@ -102,6 +165,21 @@ Please confirm availability and delivery time.`;
         <div className="grid md:grid-cols-2 gap-8">
           {/* Checkout Form */}
           <Card className="p-6">
+            {savedAddresses.length > 0 && (
+              <div className="mb-6">
+                <h3 className="text-lg font-semibold mb-2">Select a saved address</h3>
+                <div className="space-y-2">
+                  {savedAddresses.map(addr => (
+                    <button key={addr.id} onClick={() => handleSelectAddress(addr)} className="w-full text-left p-3 border rounded-md hover:bg-muted transition-colors">
+                      <p className="font-medium">{addr.street}, {addr.city}</p>
+                      <p className="text-sm text-muted-foreground">{addr.state} - {addr.postal_code}</p>
+                      {addr.is_default && <span className="text-xs font-bold text-primary">DEFAULT</span>}
+                    </button>
+                  ))}
+                </div>
+                <div className="relative my-4"><div className="absolute inset-0 flex items-center"><span className="w-full border-t" /></div><div className="relative flex justify-center text-xs uppercase"><span className="bg-card px-2 text-muted-foreground">Or Enter a New Address</span></div></div>
+              </div>
+            )}
             <h2 className="text-2xl font-bold mb-6">Delivery Details</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>

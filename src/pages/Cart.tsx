@@ -2,10 +2,10 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Trash2, ShoppingBag } from "lucide-react";
-import { useCart } from "@/hooks/useCart";
+import { useCartHook } from "@/hooks/useCart";
 
 const Cart = () => {
-  const { items, updateQuantity, removeItem, total } = useCart();
+  const { items, updateQuantity, removeItem, total } = useCartHook();
 
   if (items.length === 0) {
     return (
@@ -31,7 +31,7 @@ const Cart = () => {
           {/* Cart Items */}
           <div className="lg:col-span-2 space-y-4">
             {items.map((item) => (
-              <Card key={item.id} className="p-4">
+              <Card key={`${item.id}-${item.weight}`} className="p-4">
                 <div className="flex items-center gap-4">
                   <div className="w-24 h-24 bg-gradient-to-br from-primary/20 to-accent/20 rounded-lg flex items-center justify-center flex-shrink-0">
                     <span className="text-2xl font-bold text-primary/40">{item.name.charAt(0)}</span>
@@ -45,7 +45,7 @@ const Cart = () => {
                         variant="outline"
                         size="icon"
                         className="h-8 w-8"
-                        onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                        onClick={() => updateQuantity(item.id, item.quantity - 1, item.weight)}
                       >
                         -
                       </Button>
@@ -54,7 +54,7 @@ const Cart = () => {
                         variant="outline"
                         size="icon"
                         className="h-8 w-8"
-                        onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                        onClick={() => updateQuantity(item.id, item.quantity + 1, item.weight)}
                       >
                         +
                       </Button>
@@ -68,7 +68,7 @@ const Cart = () => {
                     <Button
                       variant="ghost"
                       size="icon"
-                      onClick={() => removeItem(item.id)}
+                      onClick={() => removeItem(item.id, item.weight)}
                       className="text-destructive hover:text-destructive"
                     >
                       <Trash2 className="h-4 w-4" />

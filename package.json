@@ -1,8 +1,20 @@
 {
   "name": "vite_react_shadcn_ts",
-  "private": true,
   "version": "0.0.0",
+  "private": true,
+  "description": "**URL**: https://lovable.dev/projects/f4306740-5dad-49f8-952c-c9aaadb2fc4d",
+  "homepage": "https://github.com/Madhandhoni07/crunch-cart-chat#readme",
+  "bugs": {
+    "url": "https://github.com/Madhandhoni07/crunch-cart-chat/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Madhandhoni07/crunch-cart-chat.git"
+  },
+  "license": "ISC",
+  "author": "",
   "type": "module",
+  "main": "eslint.config.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -60,7 +72,8 @@
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
     "vaul": "^0.9.9",
-    "zod": "^3.25.76"
+    "zod": "^3.25.76",
+    "zustand": "^5.0.8"
   },
   "devDependencies": {
     "@eslint/js": "^9.32.0",
