@@ -33,14 +33,16 @@ const YouTubeIcon = (props: React.SVGProps<SVGSVGElement>) => (
     strokeLinecap="round"
     strokeLinejoin="round"
   >
-    <path d="M21.58 7.19c-.23-.86-.9-1.52-1.76-1.75C18.25 5 12 5 12 5s-6.25 0-7.82.44c-.86.23-1.52.9-1.76 1.75C2 8.05 2 12 2 12s0 3.95.42 4.81c.23.86.9 1.52 1.76 1.75C5.75 19 12 19 12 19s6.25 0 7.82-.44c.86-.23 1.52-.9 1.76-1.75C22 15.95 22 12 22 12s0-3.95-.42-4.81z"></path>
-    <polygon points="9.5 15.5 15.5 12 9.5 8.5"></polygon>
+    <path d="M2.5 17a24.12 24.12 0 0 1 0-10A24.12 24.12 0 0 1 2.5 17Z" />
+    <path d="M11.5 21H12c7.31 0 7.31-18 0-18h-.5" />
+    <path d="M11.5 21h-1c-7.31 0-7.31-18 0-18h1" />
+    <path d="m9 12 4-2.5-4-2.5v5Z" />
   </svg>
 );
 
 const Footer = () => {
   return (
-    <footer className="border-t bg-gradient-to-b from-green-50 to-green-100">
+    <footer className="bg-muted/40 border-t">
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
           {/* Logo and Brand */}

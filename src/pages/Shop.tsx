@@ -2,8 +2,14 @@ import { useState } from "react";
 import ProductCard from "@/components/ProductCard";
 import products from "@/data/products.json";
 import { Button } from "@/components/ui/button";
+import { useCartHook } from "@/hooks/useCart";
+import { useToast } from "@/hooks/use-toast";
 
 const Shop = () => {
+  // Hardcode userId to allow anonymous cart access.
+  const hardcodedUserId = "anonymous-user";
+  const { addItem } = useCartHook(hardcodedUserId);
+  const { toast } = useToast();
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
 
   const categories = [
@@ -19,6 +25,20 @@ const Shop = () => {
     selectedCategory === "all"
       ? products
       : products.filter((p) => p.category === selectedCategory);
+
+  const handleAddToCart = (product: any, quantity: number, selectedWeight: string) => {
+    const currentPrice = product.weights ? (product.weights[selectedWeight] || product.price) : product.price;
+    const productToAdd = {
+      ...product,
+      price: currentPrice,
+      weight: selectedWeight,
+    };
+    addItem(productToAdd, quantity);
+    toast({
+      title: "Added to cart",
+      description: `${quantity} x ${product.name} (${selectedWeight}) added to your cart.`,
+    });
+  };
 
   return (
     <div className="min-h-screen py-12">
@@ -47,7 +67,7 @@ const Shop = () => {
         {/* Products Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard key={product.id} product={product} onAddToCart={handleAddToCart} />
           ))}
         </div>
 

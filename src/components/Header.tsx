@@ -1,36 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ShoppingCart, Menu, X, User, LogOut } from "lucide-react";
+import { ShoppingCart, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCartHook } from "@/hooks/useCart";
-import { supabase } from "@/integrations/supabase/client";
-import { User as SupabaseUser } from "@supabase/supabase-js";
-import logoImage from "@/assets/sssnackslogo1.jpg";
+import logoImage from "@/assets/sslogo1.jpg";
 
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [user, setUser] = useState<SupabaseUser | null>(null);
-  const { items } = useCartHook();
+  // Hardcode userId to allow anonymous cart access.
+  const hardcodedUserId = "anonymous-user";
+  const { items } = useCartHook(hardcodedUserId);
   const cartCount = items.reduce((sum, item) => sum + item.quantity, 0);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
-    });
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
-
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    navigate("/");
-  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -70,25 +52,6 @@ const Header = () => {
                 )}
               </Button>
             </Link>
-
-            {user ? (
-              <div className="hidden md:flex items-center space-x-2">
-                <Link to="/profile">
-                  <Button variant="ghost" size="icon">
-                    <User className="h-5 w-5" />
-                  </Button>
-                </Link>
-                <Button variant="ghost" size="icon" onClick={handleLogout}>
-                  <LogOut className="h-5 w-5" />
-                </Button>
-              </div>
-            ) : (
-              <Link to="/auth">
-                <Button variant="ghost" size="icon" className="hidden md:flex">
-                  <User className="h-5 w-5" />
-                </Button>
-              </Link>
-            )}
 
             {/* Mobile Menu Button */}
             <Button
@@ -133,34 +96,6 @@ const Header = () => {
             >
               Contact
             </Link>
-            {user ? (
-              <>
-                <Link
-                  to="/profile"
-                  className="block text-sm font-medium text-foreground hover:text-primary transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  My Profile
-                </Link>
-                <button
-                  onClick={() => {
-                    handleLogout();
-                    setMobileMenuOpen(false);
-                  }}
-                  className="block w-full text-left text-sm font-medium text-foreground hover:text-primary transition-colors"
-                >
-                  Logout
-                </button>
-              </>
-            ) : (
-              <Link
-                to="/auth"
-                className="block text-sm font-medium text-foreground hover:text-primary transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Login
-              </Link>
-            )}
           </nav>
         )}
       </div>

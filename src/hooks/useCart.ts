@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import productsData from "@/data/products.json";
 
 export interface CartItem {
   id: string;
@@ -26,6 +27,7 @@ export const useCart = create<CartState>()(
       addItem: (product, quantity = 1) => {
         console.log("Adding to cart:", product, "Quantity:", quantity);
         const currentItems = get().items;
+        const productDetails = productsData.find(p => p.id === product.id);
         const itemKey = `${product.id}-${product.weight}`;
         const existing = currentItems.find((item) => `${item.id}-${item.weight}` === itemKey);
         let updatedItems;

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -6,7 +6,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useCartHook } from "@/hooks/useCart";
-import { Address } from "c:/Users/madha/OneDrive/Desktop/Sample/crunch-cart-chat/AddressesPage";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
 import { z } from "zod";
@@ -20,7 +19,10 @@ const checkoutSchema = z.object({
 });
 
 const Checkout = () => {
-  const { items, total, clearCart } = useCartHook();
+  // Hardcode userId to allow anonymous cart access.
+  const hardcodedUserId = "anonymous-user";
+  const { items, total, clearCart } = useCartHook(hardcodedUserId);
+
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
@@ -30,32 +32,13 @@ const Checkout = () => {
     note: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [savedAddresses, setSavedAddresses] = useState<Address[]>([]);
 
   useEffect(() => {
     if (items.length === 0) {
       navigate("/cart");
     }
   }, [items.length, navigate]);
-
-  useEffect(() => {
-    const fetchAddresses = async () => {
-      const { data, error } = await supabase.from("addresses").select("*").order("is_default", { ascending: false });
-      if (error) {
-        console.error("Error fetching addresses:", error);
-      } else if (data) {
-        setSavedAddresses(data);
-        // Pre-fill with default address if available
-        const defaultAddress = data.find(addr => addr.is_default);
-        if (defaultAddress) {
-          handleSelectAddress(defaultAddress);
-        }
-      }
-    };
-    fetchAddresses();
-  }, []);
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     // Validate form data
@@ -79,17 +62,6 @@ const Checkout = () => {
     setErrors({});
 
     // --- Save order to Supabase ---
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) {
-      toast({
-        title: "Authentication Error",
-        description: "You must be logged in to place an order.",
-        variant: "destructive",
-      });
-      navigate("/auth");
-      return;
-    }
-
     const order_details = items.map(item => ({
       id: item.id,
       name: item.name,
@@ -99,7 +71,7 @@ const Checkout = () => {
     }));
 
     const { error: orderError } = await supabase.from("orders").insert({
-      user_id: user.id,
+      user_id: null, // Allow null for guest orders
       order_details: order_details,
       customer_info: formData,
       total_amount: total,
@@ -145,18 +117,6 @@ Please confirm availability and delivery time.`;
     }, 500);
   };
 
-  const handleSelectAddress = (addr: Address) => {
-    setFormData({
-      name: formData.name, // Keep name and note
-      phone: formData.phone,
-      address: `${addr.street}${addr.locality ? `, ${addr.locality}` : ''}`,
-      city: addr.city,
-      note: formData.note,
-      // You might want to add state and postal_code to your form state
-      // For now, we combine them into the address string.
-    });
-  };
-
   return (
     <div className="min-h-screen py-12">
       <div className="container mx-auto px-4 max-w-4xl">
@@ -165,21 +125,6 @@ Please confirm availability and delivery time.`;
         <div className="grid md:grid-cols-2 gap-8">
           {/* Checkout Form */}
           <Card className="p-6">
-            {savedAddresses.length > 0 && (
-              <div className="mb-6">
-                <h3 className="text-lg font-semibold mb-2">Select a saved address</h3>
-                <div className="space-y-2">
-                  {savedAddresses.map(addr => (
-                    <button key={addr.id} onClick={() => handleSelectAddress(addr)} className="w-full text-left p-3 border rounded-md hover:bg-muted transition-colors">
-                      <p className="font-medium">{addr.street}, {addr.city}</p>
-                      <p className="text-sm text-muted-foreground">{addr.state} - {addr.postal_code}</p>
-                      {addr.is_default && <span className="text-xs font-bold text-primary">DEFAULT</span>}
-                    </button>
-                  ))}
-                </div>
-                <div className="relative my-4"><div className="absolute inset-0 flex items-center"><span className="w-full border-t" /></div><div className="relative flex justify-center text-xs uppercase"><span className="bg-card px-2 text-muted-foreground">Or Enter a New Address</span></div></div>
-              </div>
-            )}
             <h2 className="text-2xl font-bold mb-6">Delivery Details</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
@@ -262,7 +207,7 @@ Please confirm availability and delivery time.`;
                     <span>
                       {item.name} x {item.quantity}
                     </span>
-                    <span className="font-mono font-medium">₹{item.price * item.quantity}</span>
+                    <span className="font-sans font-medium">₹{item.price * item.quantity}</span>
                   </div>
                 ))}
               </div>
@@ -270,7 +215,7 @@ Please confirm availability and delivery time.`;
               <div className="pt-6 border-t border-border">
                 <div className="flex justify-between text-xl font-bold">
                   <span>Total</span>
-                  <span className="font-mono text-primary">₹{total}</span>
+                  <span className="font-sans text-primary">₹{total}</span>
                 </div>
               </div>
             </Card>

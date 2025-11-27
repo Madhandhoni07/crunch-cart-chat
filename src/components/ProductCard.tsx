@@ -1,10 +1,15 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import { ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { useCartHook } from "@/hooks/useCart";
-import { toast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 // Import all product images with actual filenames
 import bananaChips from "@/assets/Banana chips.jpg";
@@ -63,82 +68,77 @@ interface Product {
   description: string;
   image?: string;
 }
-
 interface ProductCardProps {
   product: Product;
+  onAddToCart: (product: Product, quantity: number, selectedWeight: string) => void;
 }
 
-const ProductCard = ({ product }: ProductCardProps) => {
-  const { addItem } = useCartHook();
-  const navigate = useNavigate();
-
-  const handleAddToCart = async (e: React.MouseEvent) => {
-    e.preventDefault();
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session) {
-      navigate("/auth");
-      return;
-    }
-    // Use base weight or first available weight, or default to 500g
-    const defaultWeight = product.baseWeight || product.weight || (product.weights ? Object.keys(product.weights)[0] : "500g");
-    const defaultPrice = product.weights ? (product.weights[defaultWeight] || product.price) : product.price;
-    
-    const productToAdd = {
-      ...product,
-      price: defaultPrice,
-      weight: defaultWeight,
-    };
-    
-    addItem(productToAdd);
-    toast({
-      title: "Added to cart",
-      description: `${product.name} (${defaultWeight}) has been added to your cart.`,
-    });
+const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
+  const getDefaultWeight = (prod: Product): string => {
+    if (prod.weights) return Object.keys(prod.weights)[0];
+    return prod.baseWeight || prod.weight || "500g";
   };
 
+  const [selectedWeight, setSelectedWeight] = useState<string>(() => getDefaultWeight(product));
+  const availableWeights = product.weights ? Object.keys(product.weights) : [getDefaultWeight(product)];
+  const currentPrice = product.weights ? (product.weights[selectedWeight] || product.price) : product.price;
   const imageSrc = product.image ? imageMap[product.image] : null;
 
+  const handleAddToCartClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    onAddToCart(product, 1, selectedWeight);
+  };
+
   return (
-    <Link to={`/product/${product.id}`}>
-              <Card className="h-full hover:shadow-lg active:shadow-lg transition-all duration-300 group animate-fade-in">        <CardContent className="p-4">
-          <div className="aspect-square bg-muted rounded-lg mb-4 overflow-hidden">
-            {imageSrc ? (
-              <img 
-                src={imageSrc} 
-                alt={product.name}
-                className="w-full h-full object-cover group-hover:scale-110 group-active:scale-110 transition-transform duration-500"
-              />
-            ) : (
-              <div className="w-full h-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center group-hover:scale-105 group-active:scale-105 transition-transform duration-300">
-                <span className="text-4xl font-bold text-primary/40">{product.name.charAt(0)}</span>
-              </div>
-            )}
-          </div>
-          <h3 className="font-semibold text-lg mb-1 group-hover:text-primary group-active:text-primary transition-colors">
-            {product.name}
-          </h3>
-          <p className="text-sm text-muted-foreground mb-2 line-clamp-2">
-            {product.description}
-          </p>
-          <div className="flex items-baseline justify-between">
-            <span className="text-xl font-semibold text-primary">₹{product.price}</span>
-            <span className="text-sm text-muted-foreground">
-              {product.baseWeight || product.weight || (product.weights ? Object.keys(product.weights)[0] : "500g")}
-            </span>
-          </div>
-        </CardContent>
-        <CardFooter className="p-4 pt-0">
-          <Button 
-            onClick={handleAddToCart}
-            className="w-full hover:scale-105 transition-transform duration-200"
-            size="sm"
-          >
-            <ShoppingCart className="mr-2 h-4 w-4" />
-            Add to Cart
-          </Button>
-        </CardFooter>
-      </Card>
-    </Link>
+    <Card className="flex flex-col overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+      <Link to={`/product/${product.id}`} className="block group">
+        <div className="aspect-square overflow-hidden">
+          {imageSrc ? (
+            <img
+              src={imageSrc}
+              alt={product.name}
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            />
+          ) : (
+            <div className="w-full h-full bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center">
+              <span className="text-5xl font-bold text-primary/30">{product.name.charAt(0)}</span>
+            </div>
+          )}
+        </div>
+      </Link>
+      <CardContent className="p-4 flex-grow">
+        <Link to={`/product/${product.id}`}>
+          <h3 className="font-semibold text-lg truncate hover:text-primary">{product.name}</h3>
+        </Link>
+        <p className="text-sm text-muted-foreground line-clamp-2">{product.description}</p>
+      </CardContent>
+      <CardFooter className="p-4 pt-0 flex flex-col items-start gap-3">
+        <div className="flex items-center justify-between w-full">
+          <span className="text-xl font-bold text-primary font-sans">₹{currentPrice}</span>
+          {availableWeights.length > 1 ? (
+            <Select value={selectedWeight} onValueChange={setSelectedWeight}>
+              <SelectTrigger className="w-auto h-8 text-xs">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {availableWeights.map((weight) => (
+                  <SelectItem key={weight} value={weight} className="text-xs">
+                    {weight}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          ) : (
+            <span className="text-sm text-muted-foreground">{selectedWeight}</span>
+          )}
+        </div>
+        <Button className="w-full" onClick={handleAddToCartClick}>
+          <ShoppingCart className="mr-2 h-4 w-4" />
+          Add to Cart
+        </Button>
+      </CardFooter>
+    </Card>
   );
 };
 

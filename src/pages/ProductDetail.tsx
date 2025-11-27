@@ -77,7 +77,9 @@ interface Product {
 const ProductDetail = () => {
   const { id } = useParams();
   const product = products.find((p) => p.id === id) as Product | undefined;
-  const { addItem } = useCartHook();
+  // Hardcode userId to allow anonymous cart access.
+  const hardcodedUserId = "anonymous-user";
+  const { addItem } = useCartHook(hardcodedUserId);
 
   // Determine default weight
   const getDefaultWeight = (prod: Product | undefined): string => {
@@ -162,31 +164,32 @@ const ProductDetail = () => {
           <div>
             <h1 className="text-4xl font-bold mb-4">{product.name}</h1>
             <div className="flex items-baseline gap-4 mb-6">
-              <span className="text-4xl font-bold text-primary font-mono">₹{currentPrice}</span>
+              <span className="text-4xl font-bold text-primary font-sans">₹{currentPrice}</span>
               <span className="text-lg text-muted-foreground">per {selectedWeight}</span>
             </div>
 
             <p className="text-lg text-muted-foreground mb-8">{product.description}</p>
 
             <div className="space-y-6">
-              {product.weights && (
-                <div>
-                  <label className="block text-sm font-medium mb-2">Weight</label>
-                  <Select value={selectedWeight} onValueChange={setSelectedWeight}>
-                    <SelectTrigger className="w-full md:w-48">
-                      <SelectValue placeholder="Select weight" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {availableWeights.map((weight) => (
-                        <SelectItem key={weight} value={weight}>
-                          {weight} - <span className="font-mono">₹{product.weights![weight]}</span>
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-              )}
-
+              <div>
+                <label className="block text-sm font-medium mb-2">Weight</label>
+                <Select value={selectedWeight} onValueChange={setSelectedWeight} disabled={availableWeights.length <= 1}>
+                  <SelectTrigger className="w-full md:w-48">
+                    <SelectValue placeholder="Select weight" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {availableWeights.map((weight) => (
+                      <SelectItem key={weight} value={weight}>
+                        <span>
+                          {weight}
+                          {product.weights && ` - ₹${product.weights[weight]}`}
+                        </span>
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              
               <div>
                 <label className="block text-sm font-medium mb-2">Quantity</label>
                 <div className="flex items-center gap-3">

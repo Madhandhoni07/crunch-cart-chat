@@ -5,7 +5,11 @@ import { Trash2, ShoppingBag } from "lucide-react";
 import { useCartHook } from "@/hooks/useCart";
 
 const Cart = () => {
-  const { items, updateQuantity, removeItem, total } = useCartHook();
+  // Hardcode userId to allow anonymous cart access.
+  // In a real-world scenario, you might use localStorage or a session ID.
+  const hardcodedUserId = "anonymous-user";
+  const { items, updateQuantity, removeItem, total } =
+    useCartHook(hardcodedUserId);
 
   if (items.length === 0) {
     return (
@@ -33,7 +37,7 @@ const Cart = () => {
             {items.map((item) => (
               <Card key={`${item.id}-${item.weight}`} className="p-4">
                 <div className="flex items-center gap-4">
-                  <div className="w-24 h-24 bg-gradient-to-br from-primary/20 to-accent/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <div className="w-16 h-16 bg-gradient-to-br from-primary/10 to-accent/10 rounded-lg flex items-center justify-center flex-shrink-0">
                     <span className="text-2xl font-bold text-primary/40">{item.name.charAt(0)}</span>
                   </div>
 
@@ -63,7 +67,7 @@ const Cart = () => {
 
                   <div className="text-right">
                     <p className="text-xl font-bold text-primary mb-2">
-                      <span className="font-mono">₹{item.price * item.quantity}</span>
+                      <span className="font-sans">₹{item.price * item.quantity}</span>
                     </p>
                     <Button
                       variant="ghost"
@@ -87,7 +91,7 @@ const Cart = () => {
               <div className="space-y-3 mb-6">
                 <div className="flex justify-between text-muted-foreground">
                   <span>Subtotal</span>
-                  <span className="font-mono">₹{total}</span>
+                  <span className="font-sans">₹{total}</span>
                 </div>
                 <div className="flex justify-between text-muted-foreground">
                   <span>Items</span>
@@ -98,7 +102,7 @@ const Cart = () => {
               <div className="pt-6 border-t border-border mb-6">
                 <div className="flex justify-between text-xl font-bold">
                   <span>Total</span>
-                  <span className="font-mono text-primary">₹{total}</span>
+                  <span className="font-sans text-primary">₹{total}</span>
                 </div>
               </div>
 

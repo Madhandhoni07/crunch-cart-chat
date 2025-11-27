@@ -3,13 +3,16 @@ import { Button } from "@/components/ui/button";
 import ProductCard from "@/components/ProductCard";
 import Testimonials from "@/components/Testimonials";
 import products from "@/data/products.json";
-import { ArrowRight, Gem, ChefHat, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
+import { useCartHook } from "@/hooks/useCart";
+import { useToast } from "@/hooks/use-toast";
+import BounceCard from "@/components/BounceCard";
 
 // Import images for the new sections
 import heroImage1 from "@/assets/Soya stick.jpg"; // Now Soya Stick
@@ -18,7 +21,7 @@ import heroImage3 from "@/assets/Chocobiscuit.jpg"; // Now Choco Biscuit
 import heroImage4 from "@/assets/Dall mount mixer.jpg";
 import heroImage5 from "@/assets/masalmuruku.jpg";
 import heroImage6 from "@/assets/Moong dal.jpg";
-import promiseImage from "@/assets/masalmuruku.jpg";
+import promiseImage from "@/assets/Dall mount mixer.jpg";
 
 const heroImages = [
   heroImage1, // Soya Stick
@@ -30,22 +33,44 @@ const heroImages = [
 ];
 
 const Home = () => {
-  const featuredProducts = products.filter((p) => p.featured);
+  // Hardcode userId to allow anonymous cart access.
+  const hardcodedUserId = "anonymous-user";
+  const { addItem } = useCartHook(hardcodedUserId);
+  const { toast } = useToast();
+
+  const featuredProducts = products.filter((p) => p.featured).slice(0, 8);
+  if (featuredProducts.length < 8) {
+    featuredProducts.push(...products.filter(p => !p.featured).slice(0, 8 - featuredProducts.length));
+  }
+
+  const handleAddToCart = (product: any, quantity: number, selectedWeight: string) => {
+    const currentPrice = product.weights ? (product.weights[selectedWeight] || product.price) : product.price;
+    const productToAdd = {
+      ...product,
+      price: currentPrice,
+      weight: selectedWeight,
+    };
+    addItem(productToAdd, quantity);
+    toast({
+      title: "Added to cart",
+      description: `${quantity} x ${product.name} (${selectedWeight}) added to your cart.`,
+    });
+  };
 
   return (
     <div>
       {/* Hero Section */}
       <section className="py-12 md:py-20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center ">
             {/* Text Content */}
             <div className="flex flex-col text-center md:text-left animate-fade-in">
               <div className="order-2 md:order-1">
-                <h1 className="text-3xl sm:text-5xl md:text-6xl font-semibold mb-4 text-foreground animate-slide-up leading-tight">
+                <h1 className="text-3xl sm:text-5xl md:text-6xl font-semibold mb-4 text-green-600 animate-slide-up leading-tight">
                   Your Favorite South Indian Snacks, Now Online!
                 </h1>
-                <h2 className="text-lg md:text-xl text-primary font-semibold tracking-wider mb-8 animate-fade-in" style={{ animationDelay: "0.1s" }}>
-                 “Crispy, spicy, and made fresh just for you.”
+                <h2 className="text-lg md:text-xl text-black font-semibold tracking-wider mb-8 animate-fade-in" style={{ animationDelay: "0.1s" }}>
+                  “Crispy, spicy, and made fresh just for you.”
                 </h2>
                 <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl animate-fade-in" style={{ animationDelay: "0.2s" }}>
                  SS Snacks brings you homemade chips, mixtures, and traditional treats packed with authentic flavor. Taste the joy of South India in every bite.
@@ -93,7 +118,7 @@ const Home = () => {
 
       {/* Featured Products */}
       <section className="py-12 md:py-20 bg-muted/30">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-semibold mb-4">Our Signature Collection</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -101,9 +126,9 @@ const Home = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {featuredProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard key={product.id} product={product} onAddToCart={handleAddToCart} />
             ))}
           </div>
 
@@ -122,49 +147,24 @@ const Home = () => {
 
       {/* About Section */}
       <section className="py-12 md:py-20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-5xl mx-auto">
-            <div className="grid md:grid-cols-5 gap-12 items-center">
-              {/* Promise Image */}
-              <div className="animate-fade-in md:col-span-2">
-                <img src={promiseImage} alt="Freshly made snacks" className="rounded-2xl shadow-xl" />
-              </div>
-
-              {/* Promise Points */}
-              <div className="animate-fade-in md:col-span-3" style={{ animationDelay: "0.2s" }}>
-                <h2 className="text-4xl md:text-5xl font-semibold mb-8">The SS Snacks Promise</h2>
-                <ul className="space-y-6">
-                  <li className="flex items-start">
-                    <div className="w-12 h-12 mr-4 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <Gem className="h-6 w-6 text-primary" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-xl mb-1">Premium Quality</h3>
-                      <p className="text-muted-foreground">We source only the finest ingredients to ensure every snack meets our high standards.</p>
-                    </div>
-                  </li>
-                  <li className="flex items-start">
-                    <div className="w-12 h-12 mr-4 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <ChefHat className="h-6 w-6 text-primary" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-xl mb-1">Traditional Methods</h3>
-                      <p className="text-muted-foreground">Time-honored recipes crafted with care, preserving authentic flavors.</p>
-                    </div>
-                  </li>
-                  <li className="flex items-start">
-                    <div className="w-12 h-12 mr-4 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <Sparkles className="h-6 w-6 text-primary" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-xl mb-1">Always Fresh</h3>
-                      <p className="text-muted-foreground">Made fresh to order, delivering maximum crunch and flavor in every pack.</p>
-                    </div>
-                  </li>
-                </ul>
-              </div>
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-semibold mb-4">The SS Snacks Promise</h2>
             </div>
-                </div>
+            <div className="grid md:grid-cols-3 gap-8 items-start">
+              <Link to="/about">
+                <BounceCard title="Premium Quality" imgSrc={heroImage1} />
+              </Link>
+              <Link to="/about">
+                <BounceCard title="Traditional Methods" imgSrc={heroImage5} />
+              </Link>
+              <Link to="/about">
+                <BounceCard title="Always Fresh" imgSrc={heroImage6} />
+              </Link>
+            </div>
+            {/* Promise Image */}
+          </div>
         </div>
       </section>
     </div>
