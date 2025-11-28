@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Mail, MessageCircle, Phone, MapPin } from "lucide-react";
+import { Mail, MessageCircle, Phone, MapPin, Truck } from "lucide-react";
 
 const Contact = () => {
   return (
@@ -49,6 +49,19 @@ const Contact = () => {
             </div>
           </Card>
         </div>
+
+        <Card className="mt-8 p-8 hover:shadow-lg transition-shadow">
+          <div className="flex flex-col items-center text-center">
+            <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+              <Truck className="h-8 w-8 text-primary" />
+            </div>
+            <h3 className="text-xl font-semibold mb-2">Nationwide Delivery</h3>
+            <p className="text-muted-foreground">
+              We deliver our delicious homemade snacks all over India.
+            </p>
+          </div>
+        </Card>
+
 
         <Card className="mt-8 p-8 bg-gradient-to-br from-primary/5 to-accent/5">
           <div className="text-center">

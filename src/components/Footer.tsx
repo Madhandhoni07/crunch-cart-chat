@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import logoImage from "@/assets/sslogo1.jpg";
-
+import { Mail, Phone, Truck } from "lucide-react";
 const InstagramIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     {...props}
@@ -41,7 +41,7 @@ const YouTubeIcon = (props: React.SVGProps<SVGSVGElement>) => (
 const Footer = () => {
   return (
     <footer className="border-t bg-gradient-to-b from-green-50 to-green-100">
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-10">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
           {/* Logo and Brand */}
           <div className="flex flex-col items-center md:items-start">
@@ -52,6 +52,10 @@ const Footer = () => {
             <p className="text-sm text-muted-foreground max-w-xs">
               Authentic homemade snacks, delivered fresh to you.
             </p>
+            <div className="mt-4 flex items-center gap-3 text-primary font-semibold">
+              <Truck className="h-5 w-5" />
+              <p className="text-base">Delivering all over India!</p>
+            </div>
           </div>
 
           {/* Quick Links */}
@@ -71,10 +75,20 @@ const Footer = () => {
               <a href="https://www.instagram.com/ss_snacks___?igsh=Z3AwZjBmMmR5b2Ri" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary"><InstagramIcon className="h-6 w-6" /></a>
               <a href="https://youtube.com/@sssnacks-k9u?si=XU8P4frHDXWXAFnb" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary"><YouTubeIcon className="h-6 w-6" /></a>
             </div>
+            <div className="mt-6 text-sm text-muted-foreground space-y-2 flex flex-col items-center md:items-start">
+              <a href="mailto:sssnacks704@gmail.com" className="flex items-center gap-2 hover:text-primary">
+                <Mail className="h-4 w-4" />
+                <span>sssnacks704@gmail.com</span>
+              </a>
+              <a href="tel:+918072073523" className="flex items-center gap-2 hover:text-primary">
+                <Phone className="h-4 w-4" />
+                <span>+91 8072073523</span>
+              </a>
+            </div>
+            <div className="mt-6 text-sm text-muted-foreground text-center md:text-left">
+              <p>&copy; {new Date().getFullYear()} SS Snacks. All Rights Reserved.</p>
+            </div>
           </div>
-        </div>
-        <div className="mt-8 border-t pt-4 text-center text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} SS Snacks. All Rights Reserved.</p>
         </div>
       </div>
     </footer>

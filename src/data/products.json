@@ -12,7 +12,7 @@
     "description": "Crispy and golden banana chips, perfectly sliced and fried to perfection",
     "category": "chips",
     "featured": true,
-    "image": "banana-chips.jpg"
+    "image": "https://res.cloudinary.com/dnktlb1cp/image/upload/v1764314586/Banana_chips_gix4so.jpg"
   },
   {
     "id": "banana-chips-coconut",
@@ -27,7 +27,7 @@
     "description": "Authentic Kerala style banana chips fried in pure coconut oil for a unique flavor.",
     "category": "chips",
     "featured": false,
-    "image": "banana-chips.jpg"
+    "image": "https://res.cloudinary.com/dnktlb1cp/image/upload/v1764314586/Banana_chips_gix4so.jpg"
   },
   {
     "id": "jackfruit-chips",
@@ -42,7 +42,7 @@
     "description": "Exotic jackfruit chips with a unique sweet and savory flavor",
     "category": "chips",
     "featured": true,
-    "image": "jackfruit-chips.jpg"
+    "image": "https://res.cloudinary.com/dnktlb1cp/image/upload/v1764314580/Jack_fruit_chips_xufodl.jpg"
   },
   {
     "id": "tapioca-chips",
@@ -57,7 +57,7 @@
     "description": "Traditional Kerala-style tapioca chips, thin and crunchy",
     "category": "chips",
     "featured": false,
-    "image": "tapioca-chips.jpg"
+    "image": "https://res.cloudinary.com/dnktlb1cp/image/upload/v1764314596/Tapioca_chips_iy4m9c.jpg"
   },
   {
     "id": "karela-chips",
@@ -72,7 +72,7 @@
     "description": "Healthy bitter gourd chips, lightly seasoned and crispy",
     "category": "chips",
     "featured": false,
-    "image": "karela-chips.jpg"
+    "image": "https://res.cloudinary.com/dnktlb1cp/image/upload/v1764314535/Bitterguard_karela_chips_auagsq.jpg"
   },
   {
     "id": "potato-chips-pudhina",
@@ -87,7 +87,7 @@
     "description": "Refreshing mint-flavored potato chips with a cool aftertaste",
     "category": "chips",
     "featured": true,
-    "image": "potato-chips-pudhina.jpg"
+    "image": "https://res.cloudinary.com/dnktlb1cp/image/upload/v1764314577/Potato_pudhina_finger_rtwek0.jpg"
   },
   {
     "id": "potato-chips-ginger",
@@ -102,7 +102,7 @@
     "description": "Zesty ginger-flavored potato chips with a spicy kick",
     "category": "chips",
     "featured": false,
-    "image": "potato-chips-ginger.jpg"
+    "image": "https://res.cloudinary.com/dnktlb1cp/image/upload/v1764314563/Potato_ginger_finger_nj6jh0.jpg"
   },
   {
     "id": "kaju-mixture",
@@ -117,7 +117,7 @@
     "description": "Premium mixture with cashews, curry leaves, and aromatic spices",
     "category": "mixture",
     "featured": true,
-    "image": "kaju-mixture.jpg"
+    "image": "https://res.cloudinary.com/dnktlb1cp/image/upload/v1764314559/Cashew_mixer_mf4g9c.jpg"
   },
   {
     "id": "garlic-mixture",
@@ -132,7 +132,7 @@
     "description": "Savory mixture with bold garlic flavor and crunchy ingredients",
     "category": "mixture",
     "featured": false,
-    "image": "garlic-mixture.jpg"
+    "image": "https://res.cloudinary.com/dnktlb1cp/image/upload/v1764314546/Garlic_mixer_pavvjc.jpg"
   },
   {
     "id": "dalmound-mixture",
@@ -147,7 +147,7 @@
     "description": "Classic South Indian mixture with dal, peanuts, and sev",
     "category": "mixture",
     "featured": false,
-    "image": "dalmound-mixture.jpg"
+    "image": "https://res.cloudinary.com/dnktlb1cp/image/upload/v1764314559/Dall_mount_mixer_hzkxsu.jpg"
   },
   {
     "id": "coco-biscuit",
@@ -162,7 +162,7 @@
     "description": "Sweet coconut biscuits with a delicate crumbly texture",
     "category": "biscuits",
     "featured": false,
-    "image": "coco-biscuit.jpg"
+    "image": "https://res.cloudinary.com/dnktlb1cp/image/upload/v1764314628/coco_biscuit_nkeh2d.jpg"
   },
   {
     "id": "choco-biscuit",
@@ -177,7 +177,7 @@
     "description": "Rich chocolate biscuits, perfect for tea time",
     "category": "biscuits",
     "featured": false,
-    "image": "choco-biscuit.jpg"
+    "image": "https://res.cloudinary.com/dnktlb1cp/image/upload/v1764314290/Chocobiscuit_xppdsu.jpg"
   },
   {
     "id": "murukku-masala",
@@ -192,7 +192,7 @@
     "description": "Spiral-shaped crunchy murukku with aromatic masala spices",
     "category": "snacks",
     "featured": true,
-    "image": "murukku-masala.jpg"
+    "image": "https://res.cloudinary.com/dnktlb1cp/image/upload/v1764314632/Murukku_salted_uze5my.jpg"
   },
   {
     "id": "murukku-salt",
@@ -207,7 +207,7 @@
     "description": "Traditional salted murukku, crispy and flavorful",
     "category": "snacks",
     "featured": false,
-    "image": "murukku-salt.jpg"
+    "image": "https://res.cloudinary.com/dnktlb1cp/image/upload/v1764314632/Murukku_salted_uze5my.jpg"
   },
   {
     "id": "moong-dal",
@@ -222,7 +222,7 @@
     "description": "Roasted moong dal snack, healthy and protein-rich",
     "category": "snacks",
     "featured": false,
-    "image": "moong-dal.jpg"
+    "image": "https://res.cloudinary.com/dnktlb1cp/image/upload/v1764314614/Moong_dal_hausqk.jpg"
   },
   {
     "id": "salt-peanut",
@@ -237,7 +237,7 @@
     "description": "Roasted peanuts with just the right amount of salt",
     "category": "snacks",
     "featured": false,
-    "image": "salt-peanut.jpg"
+    "image": "https://res.cloudinary.com/dnktlb1cp/image/upload/v1764314590/Salt_peanut_g350ow.jpg"
   },
   {
     "id": "masala-peanut",
@@ -252,7 +252,7 @@
     "description": "Spicy masala-coated peanuts with a crunchy coating",
     "category": "snacks",
     "featured": true,
-    "image": "masala-peanut.jpg"
+    "image": "https://res.cloudinary.com/dnktlb1cp/image/upload/v1764314591/Masala_peanut_tsqfwl.jpg"
   },
   {
     "id": "bakarwadi",
@@ -267,7 +267,7 @@
     "description": "Spiral pastry snack with spicy and sweet filling",
     "category": "snacks",
     "featured": false,
-    "image": "bakarwadi.jpg"
+    "image": "https://res.cloudinary.com/dnktlb1cp/image/upload/v1764314631/Bhakarwadi_Big_ztdb9h.jpg"
   },
   {
     "id": "bakarwadi-small",
@@ -282,7 +282,7 @@
     "description": "Small, bite-sized spiral pastry snack with a spicy and sweet filling.",
     "category": "snacks",
     "featured": false,
-    "image": "bakarwadi-small.jpg"
+    "image": "https://res.cloudinary.com/dnktlb1cp/image/upload/v1764314623/Bhakarwadi_small_aer0qp.jpg"
   },
   {
     "id": "sabudana-papad",
@@ -297,7 +297,7 @@
     "description": "Crispy sabudana papad, perfect accompaniment to meals",
     "category": "papad",
     "featured": false,
-    "image": "sabudana-papad.jpg"
+    "image": "https://res.cloudinary.com/dnktlb1cp/image/upload/v1764314593/Sabudana_papadi_gopmmr.jpg"
   },
   {
     "id": "soya-stick",
@@ -312,6 +312,6 @@
     "description": "Crunchy soya sticks with a savory and spicy flavor.",
     "category": "snacks",
     "featured": false,
-    "image": "Soya stick.jpg"
+    "image": "https://res.cloudinary.com/dnktlb1cp/image/upload/v1764314561/Soya_stick_nvhj76.jpg"
   }
 ]

@@ -14,51 +14,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-// Import all product images with actual filenames
-import bananaChips from "@/assets/Banana chips.jpg";
-import jackfruitChips from "@/assets/Jack fruit chips.jpg";
-import tapiocaChips from "@/assets/Tapioca chips.jpg";
-import karelaChips from "@/assets/Bitterguard( karela ) chips.jpg";
-import potatoChipsPudhina from "@/assets/Potato pudhina finger.jpg";
-import potatoChipsGinger from "@/assets/Potato ginger finger.jpg";
-import kajuMixture from "@/assets/Cashew mixer.jpg";
-import garlicMixture from "@/assets/Garlic mixer.jpg";
-import dalmoundMixture from "@/assets/Dall mount mixer.jpg";
-import chocoBiscuit from "@/assets/Chocobiscuit.jpg";
-import cocoBiscuit from "@/assets/coco biscuit.jpg";
-import murukkuMasala from "@/assets/masalmuruku.jpg";
-import murukkuSalt from "@/assets/Murukku salted.jpg";
-import moongDal from "@/assets/Moong dal.jpg";
-import saltPeanut from "@/assets/Salt peanut.jpg";
-import masalaPeanut from "@/assets/Masala peanut.jpg";
-import bakarwadi from "@/assets/Bhakarwadi (Big).jpg";
-import sabudanaPapad from "@/assets/Sabudana papadi.jpg";
-import bakarwadiSmall from "@/assets/Bhakarwadi small.jpg";
-import soyaStick from "@/assets/Soya stick.jpg";
-
-const imageMap: Record<string, string> = {
-  "banana-chips.jpg": bananaChips,
-  "jackfruit-chips.jpg": jackfruitChips,
-  "tapioca-chips.jpg": tapiocaChips,
-  "karela-chips.jpg": karelaChips,
-  "potato-chips-pudhina.jpg": potatoChipsPudhina,
-  "potato-chips-ginger.jpg": potatoChipsGinger,
-  "kaju-mixture.jpg": kajuMixture,
-  "garlic-mixture.jpg": garlicMixture,
-  "dalmound-mixture.jpg": dalmoundMixture,
-  "coco-biscuit.jpg": cocoBiscuit, // Using choco biscuit as fallback
-  "choco-biscuit.jpg": chocoBiscuit,
-  "murukku-masala.jpg": murukkuMasala,
-  "murukku-salt.jpg": murukkuSalt,
-  "moong-dal.jpg": moongDal,
-  "salt-peanut.jpg": saltPeanut,
-  "masala-peanut.jpg": masalaPeanut,
-  "bakarwadi.jpg": bakarwadi,
-  "bakarwadi-small.jpg": bakarwadiSmall,
-  "sabudana-papad.jpg": sabudanaPapad,
-  "Soya stick.jpg": soyaStick,
-};
-
 interface Product {
   id: string;
   name: string;
@@ -130,7 +85,7 @@ const ProductDetail = () => {
     });
   };
 
-  const imageSrc = product.image ? imageMap[product.image] : null;
+  const imageSrc = product.image; // Directly use the image URL from product data
 
   return (
     <div className="min-h-screen py-12">

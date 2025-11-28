@@ -14,22 +14,14 @@ import { useCartHook } from "@/hooks/useCart";
 import { useToast } from "@/hooks/use-toast";
 import BounceCard from "@/components/BounceCard";
 
-// Import images for the new sections
-import heroImage1 from "@/assets/Soya stick.jpg"; // Now Soya Stick
-import heroImage2 from "@/assets/Banana chips.jpg";
-import heroImage3 from "@/assets/Chocobiscuit.jpg"; // Now Choco Biscuit
-import heroImage4 from "@/assets/Dall mount mixer.jpg";
-import heroImage5 from "@/assets/masalmuruku.jpg";
-import heroImage6 from "@/assets/Moong dal.jpg";
-import promiseImage from "@/assets/Dall mount mixer.jpg";
-
+// Use Cloudinary URLs for hero images
 const heroImages = [
-  heroImage1, // Soya Stick
-  heroImage3, // Choco Biscuit
-  heroImage2,
-  heroImage4,
-  heroImage5,
-  heroImage6,
+  "https://res.cloudinary.com/dnktlb1cp/image/upload/v1764314561/Soya_stick_nvhj76.jpg", // Soya Stick
+  "https://res.cloudinary.com/dnktlb1cp/image/upload/v1764314290/Chocobiscuit_xppdsu.jpg", // Choco Biscuit
+  "https://res.cloudinary.com/dnktlb1cp/image/upload/v1764314586/Banana_chips_gix4so.jpg", // Banana Chips
+  "https://res.cloudinary.com/dnktlb1cp/image/upload/v1764314559/Dall_mount_mixer_hzkxsu.jpg", // Dalmount Mixture
+  "https://res.cloudinary.com/dnktlb1cp/image/upload/v1764314632/Murukku_salted_uze5my.jpg", // Murukku
+  "https://res.cloudinary.com/dnktlb1cp/image/upload/v1764314614/Moong_dal_hausqk.jpg", // Moong Dal
 ];
 
 const Home = () => {
@@ -154,13 +146,13 @@ const Home = () => {
             </div>
             <div className="grid md:grid-cols-3 gap-8 items-start">
               <Link to="/about">
-                <BounceCard title="Premium Quality" imgSrc={heroImage1} />
+                <BounceCard title="Premium Quality" imgSrc={heroImages[0]} />
               </Link>
               <Link to="/about">
-                <BounceCard title="Traditional Methods" imgSrc={heroImage5} />
+                <BounceCard title="Traditional Methods" imgSrc={heroImages[4]} />
               </Link>
               <Link to="/about">
-                <BounceCard title="Always Fresh" imgSrc={heroImage6} />
+                <BounceCard title="Always Fresh" imgSrc={heroImages[5]} />
               </Link>
             </div>
             {/* Promise Image */}
